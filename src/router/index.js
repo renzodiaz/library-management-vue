@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-// Import layout + page
-import AuthLayout from '../views/layouts/AuthLayout.vue'
+// Import layout
+import AuthLayout from '@/views/layouts/AuthLayout.vue'
 import DashboardLayout from '@/views/layouts/DashboardLayout.vue'
+
+// Pages
+import BooksPage from '@/views/pages/books/BooksPage.vue'
 import DashboardPage from '@/views/pages/dashboard/DashboardPage.vue'
-import LoginPage from '../views/pages/auth/LoginPage.vue'
+import LoginPage from '@/views/pages/auth/LoginPage.vue'
 
 const routes = [
   {
@@ -26,6 +29,11 @@ const routes = [
         path: 'dashboard',
         name: 'Dashboard',
         component: DashboardPage,
+      },
+      {
+        path: 'books',
+        name: 'Books',
+        component: BooksPage,
       },
     ],
   },

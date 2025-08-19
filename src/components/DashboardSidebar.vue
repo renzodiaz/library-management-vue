@@ -62,19 +62,19 @@
                   <li>
                     <ul role="list" class="-mx-2 space-y-1">
                       <li v-for="item in navigation" :key="item.name">
-                        <a
-                          :href="item.href"
+                        <RouterLink
+                          :to="item.href"
+                          class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
                           :class="[
-                            item.current
+                            $route.path === item.href
                               ? 'bg-gray-50 text-indigo-600 dark:bg-white/5 dark:text-white'
                               : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-white',
-                            'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold',
                           ]"
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                              item.current
+                              $route.path === item.href
                                 ? 'text-indigo-600 dark:text-white'
                                 : 'text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-white',
                               'size-6 shrink-0',
@@ -82,7 +82,7 @@
                             aria-hidden="true"
                           />
                           {{ item.name }}
-                        </a>
+                        </RouterLink>
                       </li>
                     </ul>
                   </li>
@@ -130,19 +130,19 @@
           <li>
             <ul role="list" class="-mx-2 space-y-1">
               <li v-for="item in navigation" :key="item.name">
-                <a
-                  :href="item.href"
+                <RouterLink
+                  :to="item.href"
+                  class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
                   :class="[
-                    item.current
+                    $route.path === item.href
                       ? 'bg-gray-50 text-indigo-600 dark:bg-white/5 dark:text-white'
                       : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-white',
-                    'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold',
                   ]"
                 >
                   <component
                     :is="item.icon"
                     :class="[
-                      item.current
+                      $route.path === item.href
                         ? 'text-indigo-600 dark:text-white'
                         : 'text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-white',
                       'size-6 shrink-0',
@@ -150,7 +150,7 @@
                     aria-hidden="true"
                   />
                   {{ item.name }}
-                </a>
+                </RouterLink>
               </li>
             </ul>
           </li>
@@ -179,8 +179,8 @@ import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessu
 import { Cog6ToothIcon, HomeIcon, XMarkIcon, BookOpenIcon } from '@heroicons/vue/24/outline'
 
 const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Books', href: '#', icon: BookOpenIcon, current: false },
+  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true },
+  { name: 'Books', href: '/books', icon: BookOpenIcon, current: false },
 ]
 
 const sidebarOpen = ref(false)
