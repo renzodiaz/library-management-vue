@@ -1,118 +1,100 @@
-<script setup></script>
-
 <template>
-  <div class="flex min-h-full flex-1 items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-    <div class="w-full max-w-sm space-y-10">
-      <div>
-        <img
-          class="mx-auto h-10 w-auto dark:hidden"
-          src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Your Company"
-        />
-        <img
-          class="mx-auto h-10 w-auto not-dark:hidden"
-          src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-          alt="Your Company"
-        />
-        <h2
-          class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white"
-        >
-          Sign in to your account
-        </h2>
-      </div>
-      <form class="space-y-6" action="#" method="POST">
-        <div>
-          <div class="col-span-2">
+  <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img
+        class="mx-auto h-10 w-auto"
+        src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+        alt="Your Company"
+      />
+      <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+        Sign in to your account
+      </h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <Form @submit="onSubmit" :validation-schema="loginSchema">
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="block text-sm font-medium text-gray-600">Email address</label>
+          <Field name="email" v-slot="{ field, errors }">
             <input
-              id="email-address"
-              name="email"
+              v-bind="field"
               type="email"
+              id="email"
               autocomplete="email"
-              required=""
-              aria-label="Email address"
-              class="block w-full rounded-t-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:relative focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-gray-700 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
-              placeholder="Email address"
+              placeholder="Enter your email"
+              :class="[
+                'block w-full rounded-md px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400',
+                'outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2',
+                errors.length
+                  ? 'border border-red-500 outline-red-500'
+                  : 'outline-gray-300 focus:outline-indigo-600',
+              ]"
             />
-          </div>
-          <div class="-mt-px">
+          </Field>
+          <ErrorMessage name="email" class="mt-1 text-sm text-red-600" />
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="block text-sm font-medium text-gray-600">Password</label>
+          <Field name="password" v-slot="{ field, errors }">
             <input
-              id="password"
-              name="password"
+              v-bind="field"
               type="password"
+              id="password"
               autocomplete="current-password"
-              required=""
-              aria-label="Password"
-              class="block w-full rounded-b-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:relative focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-gray-700 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
-              placeholder="Password"
+              placeholder="Enter your password"
+              :class="[
+                'block w-full rounded-md px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400',
+                'outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2',
+                errors.length
+                  ? 'border border-red-500 outline-red-500'
+                  : 'outline-gray-300 focus:outline-indigo-600',
+              ]"
             />
-          </div>
+          </Field>
+          <ErrorMessage name="password" class="mt-1 text-sm text-red-600" />
         </div>
 
-        <div class="flex items-center justify-between">
-          <div class="flex gap-3">
-            <div class="flex h-6 shrink-0 items-center">
-              <div class="group grid size-4 grid-cols-1">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:checked:border-indigo-500 dark:checked:bg-indigo-500 dark:indeterminate:border-indigo-500 dark:indeterminate:bg-indigo-500 dark:focus-visible:outline-indigo-500 forced-colors:appearance-auto"
-                />
-                <svg
-                  class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                >
-                  <path
-                    class="opacity-0 group-has-checked:opacity-100"
-                    d="M3 8L6 11L11 3.5"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    class="opacity-0 group-has-indeterminate:opacity-100"
-                    d="M3 7H11"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-            <label for="remember-me" class="block text-sm/6 text-gray-900 dark:text-gray-300"
-              >Remember me</label
-            >
-          </div>
-
-          <div class="text-sm/6">
-            <a
-              href="#"
-              class="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-              >Forgot password?</a
-            >
-          </div>
-        </div>
-
+        <!-- Submit -->
         <div>
           <button
             type="submit"
-            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
+            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Sign in
           </button>
         </div>
-      </form>
+      </Form>
 
-      <p class="text-center text-sm/6 text-gray-500 dark:text-gray-400">
+      <p class="mt-10 text-center text-sm/6 text-gray-500">
         Not a member?
         {{ ' ' }}
-        <a
-          href="#"
-          class="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-          >Sign up</a
+        <RouterLink
+          :to="{ name: 'Register' }"
+          class="font-semibold text-indigo-600 hover:text-indigo-500"
         >
+          Sign up now!
+        </RouterLink>
       </p>
     </div>
   </div>
 </template>
+
+<script setup>
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import * as yup from 'yup'
+
+const loginSchema = yup.object({
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup
+    .string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
+})
+
+const onSubmit = (values) => {
+  console.log('Form submitted ✅', values)
+}
+</script>

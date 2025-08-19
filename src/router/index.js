@@ -8,6 +8,7 @@ import DashboardLayout from '@/views/layouts/DashboardLayout.vue'
 import BooksPage from '@/views/pages/books/BooksPage.vue'
 import DashboardPage from '@/views/pages/dashboard/DashboardPage.vue'
 import LoginPage from '@/views/pages/auth/LoginPage.vue'
+import RegisterPage from '@/views/pages/auth/RegisterPage.vue'
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
         path: 'login',
         name: 'Login',
         component: LoginPage,
+      },
+      {
+        path: 'register',
+        name: 'Register',
+        component: RegisterPage,
       },
     ],
   },
