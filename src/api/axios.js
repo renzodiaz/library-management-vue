@@ -40,9 +40,9 @@ const errorHandler = (error) => {
     if (status === 401) {
       popAlert("Unauthorized, please contact support");
     } else if (status === 404) {
-      popAlert(error.response.data?.error || "Resource not found");
+      popAlert(error.response.data.error || "Resource not found");
     } else if (status === 422) {
-      popAlert(error.response.data?.error);
+      popAlert(error.response.data.errors);
     } else {
       popAlert("Something went wrong");
     }
