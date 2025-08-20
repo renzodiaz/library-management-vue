@@ -12,6 +12,13 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 
 ## Project Setup
 
+create a `.env` file in the root of the project with the following variables
+```
+VITE_API_BASE_URL=http://localhost:3000/api/v1/
+VITE_API_KEY=1:{api_key_generated_in_rails_seeds}
+VITE_API_REALM=Bearer
+```
+
 ```sh
 npm install
 ```
