@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { popAlert } from '@/utils/alerts';
 import { getCurrentToken, getCurrentUser } from '@/api/auth'
 
 import { API_KEY, API_REALM, BASE_API_URL } from '@/utils/variables'
@@ -30,24 +31,29 @@ const requestHandler = (request) => {
   return request
 }
 
-const responseHandler = (response) => {
-  if (response.status === 401) {
-    console.log('Unauthorized', response)
+const responseHandler = (response) => response;
+
+const errorHandler = (error) => {
+  if (error.response) {
+    const status = error.response.status;
+
+    if (status === 401) {
+      popAlert("Unauthorized, please contact support");
+    } else if (status === 404) {
+      popAlert(error.response.data?.error || "Resource not found");
+    } else if (status === 422) {
+      popAlert(error.response.data?.error);
+    } else {
+      popAlert("Something went wrong");
+    }
+  } else {
+    popAlert("Network error, please try again");
   }
 
-  return response
+  return Promise.reject(error);
 }
 
-const errorHandler = (error) => Promise.reject(error)
-
-secureAxiosInstance.interceptors.request.use(
-  (request) => requestHandler(request),
-  (error) => errorHandler(error),
-)
-
-secureAxiosInstance.interceptors.request.use(
-  (response) => responseHandler(response),
-  (error) => errorHandler(error),
-)
+secureAxiosInstance.interceptors.request.use(requestHandler, errorHandler)
+secureAxiosInstance.interceptors.response.use(responseHandler, errorHandler)
 
 export { secureAxiosInstance, plainAxiosInstance }

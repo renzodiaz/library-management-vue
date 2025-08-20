@@ -13,7 +13,6 @@ export const useAuthStore = defineStore("auth", {
     actions: {
         async login(credentials) {
             const response = await plainAxiosInstance.post("/access_tokens", credentials);
-
             const data = dataFormatter.deserialize(response.data);
 
             this.token = data.token;
@@ -25,6 +24,7 @@ export const useAuthStore = defineStore("auth", {
 
         async logout() {
             const response = await secureAxiosInstance.delete("/access_tokens");
+            if (response?.error) return;
             this.user = null;
             this.token = null;
             localDelete('token');

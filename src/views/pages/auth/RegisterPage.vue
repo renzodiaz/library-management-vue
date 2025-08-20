@@ -125,9 +125,12 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
 import { plainAxiosInstance } from "@/api/axios";
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
+
+const router = useRouter()
 
 const registerSchema = yup.object({
   full_name: yup.string().required('Full name is required').min(3, 'Name is too short'),
@@ -148,7 +151,7 @@ const onSubmit = async (values) => {
         ...values
       }
   }).then(res => {
-      console.log(res);
+      router.push({name: "Login"})
   })
 }
 </script>
