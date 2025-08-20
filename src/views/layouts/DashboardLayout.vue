@@ -44,9 +44,9 @@
                 alt=""
               />
               <span class="hidden lg:flex lg:items-center">
-                <span class="ml-4 text-sm/6 font-semibold text-gray-900" aria-hidden="true"
-                  >Tom Cook</span
-                >
+                <span class="ml-4 text-sm/6 font-semibold text-gray-900" aria-hidden="true" v-if="auth.user">
+                  {{ `${auth.user.first_name} ${auth.user.last_name}` }}
+                </span>
                 <ChevronDownIcon class="ml-2 size-5 text-gray-400" aria-hidden="true" />
               </span>
             </MenuButton>
@@ -61,15 +61,14 @@
               <MenuItems
                 class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg outline outline-gray-900/5"
               >
-                <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
+                <MenuItem>
                   <a
-                    :href="item.href"
-                    :class="[
-                      active ? 'bg-gray-50 outline-hidden' : '',
-                      'block px-3 py-1 text-sm/6 text-gray-900',
-                    ]"
-                    >{{ item.name }}</a
-                  >
+                    href="#"
+                    class="block px-3 py-1 text-sm/6 text-gray-900"
+                    @click="logout"
+                    >
+                      Logout
+                    </a>
                 </MenuItem>
               </MenuItems>
             </transition>
@@ -87,13 +86,18 @@
 </template>
 
 <script setup>
-import DashboardSidebar from '@/components/DashboardSidebar.vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from "@/stores/auth";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
+import DashboardSidebar from '@/components/DashboardSidebar.vue'
 
-const userNavigation = [
-  { name: 'Your profile', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+const router = useRouter()
+const auth = useAuthStore()
+
+const logout = async () => {
+  await auth.logout()
+  router.push({name: "Login"})
+}
 </script>

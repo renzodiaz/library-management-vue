@@ -83,8 +83,13 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+import { useAuthStore } from "@/stores/auth";
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
+
+const router = useRouter()
+const auth = useAuthStore()
 
 const loginSchema = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -94,7 +99,8 @@ const loginSchema = yup.object({
     .required('Password is required'),
 })
 
-const onSubmit = (values) => {
-  console.log('Form submitted ✅', values)
+const onSubmit = async (values) => {
+  await auth.login({ data: {...values} })
+  router.push({name: "Dashboard"})
 }
 </script>

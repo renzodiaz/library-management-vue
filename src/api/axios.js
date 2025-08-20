@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getCurrentToken, getCurrentUser } from '@/api/auth'
 
-import { API_KEY, API_REALM, API_TOKEN, BASE_API_URL } from '@/utils/variables'
+import { API_KEY, API_REALM, BASE_API_URL } from '@/utils/variables'
 
 const axiosConfig = {
   baseURL: BASE_API_URL,
@@ -15,7 +15,7 @@ const secureAxiosInstance = axios.create({ ...axiosConfig })
 const plainAxiosInstance = axios.create({
   ...axiosConfig,
   headers: {
-    Authorization: `${API_REALM} api_key=${API_KEY}:${API_TOKEN}`,
+    Authorization: `${API_REALM} api_key=${API_KEY}`,
   },
 })
 
@@ -24,7 +24,7 @@ const requestHandler = (request) => {
   let access_token = getCurrentToken()
 
   if (access_token) {
-    request.headers.Authorization = `${API_REALM} api_key=${API_KEY}:${API_TOKEN}, access_token=${user_id}:${access_token}`
+    request.headers.Authorization = `${API_REALM} api_key=${API_KEY}, access_token=${user_id}:${access_token}`
   }
 
   return request

@@ -125,6 +125,7 @@
 </template>
 
 <script setup>
+import { plainAxiosInstance } from "@/api/axios";
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
 
@@ -141,7 +142,13 @@ const registerSchema = yup.object({
     .required('Password confirmation is required'),
 })
 
-const onSubmit = (values) => {
-  console.log('Register form ✅', values)
+const onSubmit = async (values) => {
+  await plainAxiosInstance.post('/users', {
+      data: {
+        ...values
+      }
+  }).then(res => {
+      console.log(res);
+  })
 }
 </script>
