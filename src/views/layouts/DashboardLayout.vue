@@ -61,6 +61,7 @@
       <div class="px-4 sm:px-6 lg:px-8">
         <router-view></router-view>
       </div>
+      <DashboardDrawer />
     </main>
   </div>
 </template>
@@ -73,6 +74,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 import DashboardSidebar from '@/components/DashboardSidebar.vue'
+import DashboardDrawer from '@/components/DashboardDrawer.vue';
 
 const router = useRouter()
 const auth = useAuthStore()

@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { defineStore, getActivePinia } from "pinia";
 import { dataFormatter } from "@/utils/jsona";
 import { plainAxiosInstance, secureAxiosInstance } from "@/api/axios";
 import { localStore, localDelete } from '@/utils/local_storage'
@@ -23,12 +23,8 @@ export const useAuthStore = defineStore("auth", {
         },
 
         async logout() {
-            const response = await secureAxiosInstance.delete("/access_tokens");
-            if (response?.error) return;
-            this.user = null;
-            this.token = null;
-            localDelete('token');
-            localDelete('user_id');
+            await secureAxiosInstance.delete("/access_tokens");
+            window.localStorage.clear();
         },
     },
 

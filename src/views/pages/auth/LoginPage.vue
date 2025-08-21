@@ -91,6 +91,8 @@ const onSubmit = async (values) => {
         popAlert(error.response.data?.error || "Rosource not found!");
       } else if (error.response.status === 401) {
         popAlert(error.response.data?.error || "Invalid credentials.");
+      }  else if (error.response.status === 422) {
+        popAlert(error.response.data?.error.message || "Invalid credentials.");
       } else {
         popAlert("Server error:", error.response.status);
       }
